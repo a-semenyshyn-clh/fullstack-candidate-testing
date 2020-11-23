@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 
 const Job = (props) => {
@@ -38,70 +36,63 @@ const Job = (props) => {
 
   return (
     <div className="pl-2 pr-2">
-      <Grid
-        container
-        className="border-t border-gray-300 border-solid mt-2 cursor-pointer position-relative"
+      <div
+        className="grid grid-cols-6 gap-4 border-t border-gray-300 border-solid mt-2 cursor-pointer position-relative"
         onClick={() => setExpanded(!expanded)}
       >
-        <Grid item md={10}>
-          <label className="font-bold text-sm mb-0 mt-2 d-block">
+        <div className="col-span-6 md:col-span-5">
+          <label className="font-bold text-sm mb-0 mt-2 block cursor-pointer">
             {data.job_title}
           </label>
-          <label className="text-sm">
+          <label className="text-sm cursor-pointer">
             {`${data.job_type} | $${data.salary_range[0]} - $${data.salary_range[1]} an hour | ${data.city}`}
           </label>
-        </Grid>
-        <Grid item md={2} className="text-right pr-4">
-          <label className="mt-4 text-sm">{getAgo(data.created)}</label>
-        </Grid>
-      </Grid>
+        </div>
+        <div className="text-left pr-4 col-span-6 md:col-span-1 md:text-right pt-3">
+          <label className="mt-4 text-sm cursor-pointer">
+            {getAgo(data.created)}
+          </label>
+        </div>
+      </div>
 
       {expanded && (
         <div className="mt-4">
-          <Grid container spacing={3}>
-            <Grid item lg={10}>
-              <Grid container spacing={3}>
-                <Grid item md={4}>
+          <div className="grid grid-cols-6 gap-3">
+            <div className="col-span-6 md:col-span-5">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="col-span-3 md:col-span-1">
                   <label className="font-bold text-sm">{"Department"}</label>
-                </Grid>
-                <Grid item md={8}>
+                </div>
+                <div className="col-span-3 md:col-span-2">
                   <p className="text-sm">{data.department.join(",")}</p>
-                </Grid>
-                <Grid item md={4}>
+                </div>
+                <div className="col-span-3 md:col-span-1">
                   <label className="font-bold text-sm">
                     {"Hours / shifts"}
                   </label>
-                </Grid>
-                <Grid item md={8}>
+                </div>
+                <div className="col-span-3 md:col-span-2">
                   <p className="text-sm">
                     {`${data.hours[0]} hours / ${data.work_schedule}`}
                   </p>
-                </Grid>
-                <Grid item md={4}>
+                </div>
+                <div className="col-span-3 md:col-span-1">
                   <label className="font-bold text-sm">{"Summary"}</label>
-                </Grid>
-                <Grid item md={8}>
+                </div>
+                <div className="col-span-3 md:col-span-2">
                   <p className="text-sm">{data.description}</p>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item lg={2} className="pt-3 text-right">
-              <Button
-                variant="contained"
-                color="primary"
-                className="m-1 text-sm"
-              >
+                </div>
+              </div>
+            </div>
+            <div className="col-span-6 md:col-span-1 text-left pt-3 md:text-right">
+              <button className="rounded border bg-blue-400 p-3 pt-2 pb-2 text-white text-sm m-1">
                 {"Job details"}
-              </Button>
-              <Button
-                variant="outlined"
-                color="primary"
-                className="m-1 text-sm"
-              >
+              </button>
+              <button className="rounded border border-blue-400 border-solid p-3 pt-2 pb-2 text-blue-400 text-sm m-1">
                 {"Save job"}
-              </Button>
-            </Grid>
-          </Grid>
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

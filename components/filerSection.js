@@ -1,6 +1,5 @@
 import React from "react";
 import Filter from "./filter";
-import Card from "@material-ui/core/Card";
 import PropTypes from "prop-types";
 
 const FilterSection = (props) => {
@@ -8,8 +7,8 @@ const FilterSection = (props) => {
 
   return (
     <>
-      <Card className="border border-gray-50 bg-white mt-3 p-3">
-        <label className="font-bold text-base mt-1 mb-3 ml-2">{title}</label>
+      <div className="border border-gray-400 rounded shadow-md bg-white mt-3 p-3">
+        <label className="font-bold text-base my-2 ml-2">{title}</label>
 
         {filters.slice(0, 10).map((item) => (
           <Filter item={item} key={item.key} />
@@ -28,7 +27,7 @@ const FilterSection = (props) => {
             {"Show more"}
           </label>
         )}
-      </Card>
+      </div>
     </>
   );
 };

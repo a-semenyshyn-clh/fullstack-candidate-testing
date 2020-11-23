@@ -20,7 +20,7 @@ const Hospital = (props) => {
           maxInitials={2}
           round={"6px"}
         />
-        <label className="text-sm ml-3 mt-1">
+        <label className="text-sm ml-3 mt-1 cursor-pointer">
           {`${hospital.total_jobs_in_hospital.toLocaleString()} jobs for ${
             hospital.name
           }`}
