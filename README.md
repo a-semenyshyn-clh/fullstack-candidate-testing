@@ -2,8 +2,7 @@
 
 ##Public URL
 
-https://vercel-next.laikang24.vercel.app
-
+https://clipboard-sooty.vercel.app/
 
 ## How to test on local
 
