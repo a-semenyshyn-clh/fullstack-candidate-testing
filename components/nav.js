@@ -13,8 +13,8 @@ const links = [
 }));
 
 const Nav = () => (
-  <nav className="flex justify-between items-center px-6 h-16">
-    <div className="text-lg font-bold">
+  <nav className="flex justify-between items-center px-6 h-16 bg-white">
+    <div className="text-lg font-bold text-blue-500">
       <Link href="/">
         <a>HEALTH EXPLORE</a>
       </Link>
@@ -29,9 +29,12 @@ const Nav = () => (
       ))}
     </ul>
     <div className="flex items-center">
-      <button className="border-blue-500  px-5 py-1 rounded-md border-2 mr-3">
+      <button className="border-blue-500 text-blue-500 px-5 py-1 rounded-md border-2 mr-3">
         CREATE JOB
       </button>
+      <div className="rounded-full w-8 h-8 bg-blue-500 mr-3 text-white flex justify-center items-center">
+        JO
+      </div>
       <div className="font-bold">
         <Link href="/">
           <a>LOGOUT</a>

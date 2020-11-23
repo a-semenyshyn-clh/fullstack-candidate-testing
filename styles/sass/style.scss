@@ -2,13 +2,12 @@
 @import "~tailwindcss/components";
 @import "~tailwindcss/utilities";
 
-
 $primary-color: #482ff7;
 $secondary-color: #fc5c9c;
 
 
 body {
-  color: $primary-color;
+  // color: $primary-color;
   @apply text-base antialiased;
 }
 
