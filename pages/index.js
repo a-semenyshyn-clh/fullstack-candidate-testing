@@ -93,13 +93,15 @@ export default function Home() {
               </div>
               <div className="col-span-4 md:col-span-3">
                 <div className="border border-gray-400 rounded shadow-md bg-white mt-3 p-3">
-                  <div className="flex justify-between mt-4 mb-3">
-                    <div className="pt-2">
+                  <div className="lg:flex justify-between mt-4 mb-3">
+                    <div className="pt-2 md:pl-4">
                       <label className="font-bold">{totalCount}</label>
                       <label className="ml-2">{"job postings"}</label>
                     </div>
-                    <div className="flex">
-                      <label className="text-gray-500	mt-2 mr-4">Sort by</label>
+                    <div className="lg:flex">
+                      <label className="text-gray-500	mt-6 lg:mt-2 mr-4 md:ml-4">
+                        Sort by
+                      </label>
                       <Sort
                         title="Location"
                         onChange={(sort) => setLocation(sort)}
