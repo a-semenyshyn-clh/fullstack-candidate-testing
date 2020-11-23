@@ -1,8 +1,9 @@
 import _ from "lodash";
 import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
-import NumberFormat from "react-number-format";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Modal from "react-modal";
+
+import FilterButton from "./filterButton";
 
 Modal.setAppElement("#__next");
 
@@ -18,7 +19,6 @@ const useCategoryFilter = (categoryName) => {
   const jobsPerCategory = useSelector((state) => {
     return _.chain(state.filteredJobs)
       .flatMap((job) => {
-        console.log(job);
         return _.isString(job.items[0][categoryName])
           ? job.items
           : _.flatMap(job.items, (job2) =>
@@ -39,14 +39,50 @@ const useCategoryFilter = (categoryName) => {
           : x
       )
       .map((value, key) => {
-        return { key: key, doc_count: value.length };
+        return {
+          key: key,
+          doc_count: value.length,
+          enabled: state.filters[categoryName][key],
+        };
       })
-      .orderBy((x) => x.doc_count, "desc")
+      .orderBy((x) => [x.enabled, x.doc_count], ["desc", "desc"])
       .value();
   }, shallowEqual);
 
+  console.log("jobsPerCategory", jobsPerCategory);
+
+  const selectedFilters = useSelector((state) => {
+    return _.filter(
+      _.keys(state.filters[categoryName]),
+      (key) => state.filters[categoryName][key]
+    );
+  });
+
+  const dispatch = useDispatch();
+  const jobFilter = (value) => {
+    console.log(
+      `trigger 'jobs/filterBy' with values: ${categoryName}, ${value}`
+    );
+    dispatch({
+      type: "jobs/filterBy",
+      filterField: categoryName,
+      filterValue: value,
+    });
+  };
+
+  const clearFilters = () => {
+    dispatch({
+      type: "jobs/filterBy",
+      filterField: categoryName,
+      filterValue: selectedFilters,
+    });
+  };
+
   return {
     jobsPerCategory,
+    jobFilter,
+    selectedFilters,
+    clearFilters,
   };
 };
 
@@ -58,57 +94,65 @@ const CategoryFilter = (props) => {
     setIsOpen(true);
   };
 
-  const afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    //subtitle.style.color = "#f00";
-  };
-
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const { jobsPerCategory } = useCategoryFilter(categoryName);
+  const {
+    jobsPerCategory,
+    jobFilter,
+    selectedFilters,
+    clearFilters,
+  } = useCategoryFilter(categoryName);
 
   const renderCategories = (categories) => {
     return _.take(categories, maxCategories).map((category) => (
-      <div class="flex items-center px-3 pb-2" key={category.key}>
-        <div class="font-light text-sm">{category.key}</div>
-        <div class="flex-1 text-xs pl-2">
-          <NumberFormat
-            value={category.doc_count}
-            displayType={"text"}
-            thousandSeparator={true}
-            renderText={(value) => (
-              <div class="uppercase text-gray-600 pt-1 text-xs">{value}</div>
-            )}
-          />
-        </div>
-      </div>
+      <FilterButton
+        key={category.key}
+        title={category.key}
+        value={category.doc_count}
+        enabled={category.enabled}
+        selected={_.includes(selectedFilters, category.key)}
+        onFilter={() => {
+          jobFilter(category.key);
+        }}
+      />
     ));
   };
 
   const renderNoData = () => {
     return (
-      <div class="w-full flex items-center justify-start p-4 bg-white dark:bg-grey-800 text-blue-500 shadow p-4">
-        <div class="flex-shrink"></div>
-        <div class="flex-grow text-center">There are no categories.</div>
+      <div className="w-full flex items-center justify-start p-4 bg-white dark:bg-grey-800 text-blue-500 shadow p-4">
+        <div className="flex-shrink"></div>
+        <div className="flex-grow text-center">There are no categories.</div>
       </div>
     );
   };
 
   return (
-    <div class="bg-white mb-5">
-      <div class="flex items-baseline px-3 pb-1 pt-3 font-semibold">
-        <div class="flex-1 text-sm uppercase">{title}</div>
+    <div className="bg-white mb-5">
+      <div className="flex items-baseline px-3 pb-1 pt-3 font-semibold">
+        <div className="flex-1 text-sm uppercase">{title}</div>
+        <span className="float-right">
+          {selectedFilters.length > 0 && (
+            <a
+              className="text-xs text-blue-clipboard"
+              onClick={clearFilters}
+              href="#"
+            >
+              Clear
+            </a>
+          )}
+        </span>
       </div>
-      <div class="pt-2">
+      <div className="pt-2">
         {jobsPerCategory && jobsPerCategory.length
           ? renderCategories(jobsPerCategory)
           : renderNoData()}
         {maxCategories < jobsPerCategory.length && (
           <>
-            <div class="flex items-center px-3 pb-2">
-              <div class="flex-1 text-sm">
+            <div className="flex items-center px-3 pb-2">
+              <div className="flex-1 text-sm">
                 <a href="#" onClick={openModal}>
                   Show more
                 </a>
@@ -117,16 +161,16 @@ const CategoryFilter = (props) => {
 
             <Modal
               isOpen={modalIsOpen}
-              onAfterOpen={afterOpenModal}
               onRequestClose={closeModal}
-              contentLabel="Example Modal"
               style={customStyles}
             >
-              <div class="modal-content h-auto">
-                <div class="modal-header border-b-1 border-b p-5">
-                  <h3 class="text-xl font-semibold inline">{categoryName}</h3>
+              <div className="modal-content h-auto">
+                <div className="modal-header border-b-1 border-b p-5">
+                  <h3 className="text-xl font-semibold inline">
+                    {categoryName}
+                  </h3>
                   <button
-                    class="modal-close btn btn-transparent float-right"
+                    className="modal-close btn btn-transparent float-right"
                     onClick={closeModal}
                   >
                     <svg
@@ -137,7 +181,7 @@ const CategoryFilter = (props) => {
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       size="18"
-                      class="stroke-current"
+                      className="stroke-current"
                       height="18"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
@@ -148,25 +192,19 @@ const CategoryFilter = (props) => {
                   </button>
                 </div>
 
-                <div class="max-w-screen-xl mx-auto px-8">
-                  <div class="-mx-4 flex flex-wrap">
+                <div className="max-w-screen-xl mx-auto px-8">
+                  <div className="-mx-4 flex flex-wrap">
                     {_.map(jobsPerCategory, (category) => (
-                      <div class="w-full p-1 sm:w-1/4" key={category.key}>
-                        <div class="">
-                          <span class="font-light text-sm">{category.key}</span>
-                          <span class="flex-1 text-xs pl-2">
-                            <NumberFormat
-                              value={category.doc_count}
-                              displayType={"text"}
-                              thousandSeparator={true}
-                              renderText={(value) => (
-                                <span class="text-gray-600 pt-1 text-xs">
-                                  {value}
-                                </span>
-                              )}
-                            />
-                          </span>
-                        </div>
+                      <div className="w-full p-1 sm:w-1/4" key={category.key}>
+                        <FilterButton
+                          title={category.key}
+                          value={category.doc_count}
+                          selected={category.enabled}
+                          selected={_.includes(selectedFilters, category.key)}
+                          onFilter={() => {
+                            jobFilter(category.key);
+                          }}
+                        />
                       </div>
                     ))}
                   </div>
