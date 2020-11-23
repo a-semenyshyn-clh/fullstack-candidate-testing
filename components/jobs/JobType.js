@@ -1,28 +1,54 @@
-import React, { useEffect } from "react";
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { useSearch } from 'components/jobs/SearchFilter';
+import Modal from 'components/modal';
 
-import { setModal } from 'redux/actions'
+export const JobType =  ({ data, filter, name }) => {
 
-export const JobType =  ({ setModal, data, name }) => {
-  const changeModal = () => {
-    setModal('', name, data)
-  }
+  const { searchIndex, setSearchIndex } = useSearch();
+
+  const onChangeSearch = (type, val) => {
+    setSearchIndex({
+      filter: {
+        [type]: val,
+      },
+      search: {
+        name: searchIndex.search.name,
+      },
+    });
+  };
+
+  const [showModal, setShowModal] = useState(false)
+
+  const modal = (
+    <Modal open={showModal} titleModal={name} textModal={data[filter]} onClose={()=>{setShowModal(false)} } />
+  )
+
+  const nf = new Intl.NumberFormat();
 
   return (
     <div className="w-full bg-white mb-4 py-4 px-4">
       <h1 className="my-2 font-bold">{name}</h1>
       {
-        data.map( (item, idx) => {
+        data[filter].map( (item, idx) => {
           {
+            let filter_key = searchIndex.filter[filter];
             if(idx < 10)
             return (
-              <div className="flex my-2" key={idx}>
-                <h1>{ item['key'] } <span className="text-gray-500"> { item['doc_count'] }</span></h1>
+              <div
+                key={item.key}
+                className={`flex space-x-2 mb-2 cursor-pointer ${
+                  item.key === filter_key ? 'text-blue-400' : ''
+                }`}
+                onClick={() => onChangeSearch(filter, item.key)}
+              >
+                <h2>{item['key']}</h2>
+                <p className="text-gray-500">{nf.format(item.doc_count)}</p>
               </div>
             )
             else if(idx === 10) return (
               <div className="flex my-2" key={idx}>
-                <h1 className="text-indigo-600 cursor-pointer" onClick={changeModal}>Show more</h1>
+                <h1 className="text-indigo-600 cursor-pointer" onClick={()=>{ setShowModal(true)}}>Show more</h1>
+                {modal}
               </div>
             )
           }
@@ -33,12 +59,4 @@ export const JobType =  ({ setModal, data, name }) => {
   )
 }
 
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToProps = {
-  setModal
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(JobType);
+export default JobType;

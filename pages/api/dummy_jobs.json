@@ -1,4 +1,4 @@
-export default [
+[
   {
     "total_jobs_in_hospital": 8,
     "name": "Mammoth Hospital",

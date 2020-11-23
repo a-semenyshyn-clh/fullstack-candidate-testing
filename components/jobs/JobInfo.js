@@ -32,9 +32,9 @@ const JobInfo = (props) => {
       </div>
       {
         showJobDetail ?
-        <div className="px-2 py-2 flex">
-          <div className="w-3/4">
-            <div className="w-full flex">
+        <div className="px-2 py-2 lg:flex">
+          <div className="w-full lg:w-3/4">
+            <div className="w-full lg:flex">
               <div className="w-1/2">
                 <h1 className="font-bold">Department:</h1>
               </div>
@@ -59,7 +59,8 @@ const JobInfo = (props) => {
               </div>
             </div>
           </div>
-          <div className="w-1/4 flex items-center flex-col justify-center">
+
+          <div className="w-full lg:w-1/4 flex items-center flex-col justify-center">
             <div className="w-full flex flex-wrap justify-end">
               <button className="bg-blue-400 hover:bg-gray-900 text-white px-4 py-2 m-1 rounded-lg">
                 Job details

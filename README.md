@@ -17,11 +17,8 @@ Takeshi
 
 ```
 
-
-
 ## Pre-requirements
 
-- [MongoDB]
 - [Node]
 - [npm]
 
@@ -31,39 +28,6 @@ Takeshi
 ```terminal
 $ npm install
 $ npm run dev
-```
-
-## Back-End usage
-
-#### Port: 8000
-
-```terminal
-$ cd server
-$ npm install
-$ npm run build
-$ npm start
-```
-
-#### Seed for "Jobs" data
-
-For filter, didn't make schema for it. Because it is needed other relationship with other collections.
-Used filter.json as a constant.
-
-```terminal
-npm install -g mongoose-data-seed
-md-seed run -d
-```
-
-#### Endpoints
-
-```curl
-http://localhost:8000/jobs
-```
-
-and
-
-```curl
-http://localhost:8000/jobs/filter
 ```
 ## Results
 

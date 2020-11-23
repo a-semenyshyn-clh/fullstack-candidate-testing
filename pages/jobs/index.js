@@ -1,63 +1,79 @@
-
-import React, { useEffect } from "react";
-import { connect } from 'react-redux';
-
-import { getJobs, getJobFilter } from 'redux/actions';
-
-import JobType from 'components/jobs/JobType';
+import { useState, useEffect } from 'react';
+import Nav from 'components/nav';
+import Footer from 'components/footer';
 import JobList from 'components/jobs/JobList';
-import JobModal from 'components/jobs/JobModal';
+import JobType from 'components/jobs/JobType';
+import { useSearch } from 'components/jobs/SearchFilter';
 
-import data_filter from 'constant/job-filter-dummy';
-import data_jobs from 'constant/jobs-dummy'
+export default function Jobs({  }) {
+  const [jobs, setJobs] = useState([]);
+  const [filters, setFilters] = useState({});
+  const { searchIndex, setSearchIndex } = useSearch();
 
-export const Jobs =  ({ jobs, job_filter, getJobs, getJobFilter }) => {
-  const job_filters = [
-    { name: 'JOB TYPE', key:'job_type'},
-    { name: 'DEPARTMENT', key:'department'},
-    { name: 'WORK SCHEDULE', key:'work_schedule'},
-    { name: 'EXPERIENCE', key:'experience'},
-  ]
-
+  const onChangeSearch = (val) => {
+    setSearchIndex({
+      filter: {},
+      search: {
+        name: val,
+      },
+    });
+  };
   useEffect(() => {
+
+    async function getJobs() {
+      let response = await fetch(`/api/job`, {
+        method: 'POST',
+        body: JSON.stringify(searchIndex),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      let data = await response.json();
+      setJobs(data);
+    }
+
+    async function getFilters() {
+      const res = await fetch(`/api/filter`);
+      let data = await res.json();
+      setFilters(data);
+    }
+
     getJobs();
-    getJobFilter();
-  }, []);
+    getFilters();
+  }, [searchIndex]);
 
   return (
     <div>
-      <div className="relativew-full mx-auto py-4">
-        <div className="absolute h-10 mt-1  flex items-center pl-10">
-          <svg className="h-4 w-4 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path></svg>
-        </div>
-        <input id="search-toggle" type="search" placeholder="Search for any job, title, keywords or company" className="block w-full bg-brand-white focus:outline-none focus:bg-white focus:shadow text-gray-700 font-bold pl-16 pr-4 py-3"/>
-      </div>
+      <Nav/>
+      <div className="flex justify-center">
+        <div className="container pt-20 flex flex-col min-h-screen h-full">
 
-      <div className="grid grid-cols-5 gap-4">
-        <div className="col-span-1">
-          {
-            Object.keys(job_filter).map( (item, idx) => (
-              <JobType name={ (item.split('_')).join(" ").toUpperCase() } data={job_filter[item]} key={idx}/>
-            ))
-          }
-        </div>
-        <div className="col-span-4">
-          <JobList jobs={jobs} jobfilter={job_filter}/>
+          <div className="mx-2">
+            <div className="absolute h-10 mt-1 flex items-center pl-10">
+              <svg className="h-4 w-4 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path></svg>
+            </div>
+            <input
+              type="search" placeholder="Search for any job, title, keywords or company"
+              onChange={(e) => onChangeSearch(e.target.value)}
+              className="block w-full bg-brand-white focus:outline-none focus:bg-white focus:shadow text-gray-700 font-bold pl-16 pr-4 py-3"/>
+          </div>
+
+          <div className="flex">
+            <div className="hidden lg:flex flex-col w-1/4 mx-2 my-4">
+              {
+                Object.keys(filters).map( (item, idx) => (
+                  <JobType name={ (item.split('_')).join(" ").toUpperCase() } data={filters} filter={item} key={idx}/>
+                ))
+              }
+            </div>
+            <div className="flex flex-col w-full lg:w-3/4 min-h-screen mx-2 my-4">
+              <JobList jobs={jobs} jobfilter={filters} />
+            </div>
+          </div>
         </div>
       </div>
-
-      <JobModal />
+      <Footer />
     </div>
-  )
+  );
 }
-
-const mapStateToProps = state => ({
-  jobs: state.job.jobs,
-  job_filter: state.job.job_filter,
-
-});
-
-const mapDispatchToProps = { getJobs, getJobFilter };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
