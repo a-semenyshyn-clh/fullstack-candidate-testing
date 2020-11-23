@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SortBar = ({ data, onClick }) => {
+const SortBar = ({ data, className, onClick }) => {
   const [sortOptions, setSortOptions] = useState([
     {
       text: "Location",
@@ -25,7 +25,7 @@ const SortBar = ({ data, onClick }) => {
   ]);
 
   return (
-    <ul className="p-2 md:p-0 md:flex">
+    <ul className={className}>
       <li className="text-gray-500 px-3">Sort by</li>
       {sortOptions.map((item, index) => (
         <li key={`sort-${index}`} className="font-bold text-black px-3 py-1 md:py-0">

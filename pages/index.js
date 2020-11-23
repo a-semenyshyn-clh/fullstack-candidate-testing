@@ -55,7 +55,7 @@ const Home = () => {
             placeholder="Search for any job, title, keyworkds"
           />
         </div>
-        <div className="main-content md:grid grid-cols-12 gap-4 h-full overflow-auto md:p-6 md:pr-3 pt-0">
+        <div className="main-content md:grid grid-cols-12 gap-4 h-full overflow-auto md:p-6 md:pr-3 md:pt-0">
           <div className="main-sidebar col-start-1 col-end-4 hidden md:block">
             {Object.keys(filters).map((key, id) => (
               <FilterPanel
@@ -70,7 +70,7 @@ const Home = () => {
               <span>
                 <strong className="mr-3">{totalJobs}</strong>job postings
               </span>
-              <SortBar />
+              <SortBar className="p-2 md:p-0 hidden md:flex" />
             </div>
             <div className="main-content-data">
               {jobs.map((hospital, index) => (
@@ -90,7 +90,7 @@ const Home = () => {
             onClick={() => setMenuOpened(false)}
           />
           <div className="overflow-auto h-full">
-            <SortBar />
+            <SortBar className="p-2 md:p-0 md:flex" />
             {Object.keys(filters).map((key, id) => (
               <FilterPanel
                 key={`filter-${id}`}
