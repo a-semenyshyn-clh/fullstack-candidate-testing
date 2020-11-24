@@ -9,11 +9,12 @@ const JobItems = ({ name, router }) => {
   const [jobDescriptionToggle, setJobDescriptionToggle] = React.useState({});
 
   const sortData = (items) => {
+    console.log({ router });
     const {
-      location, role, department, education, experience,
+      location, job_title, department, required_skills, experience,
      } = router.query;
     const sortingKeys = {
-      location, role, department, education, experience,
+      location, job_title, department, required_skills, experience,
      };
     const sortingKeysArray = Object.keys(sortingKeys);
     const sortedJobItems = [...items];
