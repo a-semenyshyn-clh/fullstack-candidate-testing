@@ -2,7 +2,7 @@ export default function Nav() {
   return (
     <nav className="bg-white text-sm">
       <ul className="flex items-center justify-between py-2 px-4">
-        <li className="text-blue-500 font-semibold text-lg">HEALTH EXPLORE</li>
+        <li className="text-blue-500 font-semibold text-lg ml-4">HEALTH EXPLORE</li>
         <ul className="flex items-center justify-between space-x-6">
           <li><button className="font-semibold">PROFILE</button></li>
           <li><button className="font-semibold">JOBS</button></li>
