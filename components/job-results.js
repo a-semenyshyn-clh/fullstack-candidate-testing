@@ -52,7 +52,7 @@ export default function JobResults({ jobs }) {
         <div>
           <span className="font-bold">{totalJobs}</span> job postings
         </div>
-        <div className="flex space-x-4">
+        <div className="hidden lg:flex space-x-4">
           <div className="text-gray-500">Sort by</div>
           {sorters.map(sorter => {
             const sorterValue = params.sorter[sorter.key];
