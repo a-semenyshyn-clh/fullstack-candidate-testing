@@ -10,12 +10,12 @@ import "../styles/sass/style.scss";
 const Home = () => {
   const [filters, setFilters] = useState({});
   const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [menuOpened, setMenuOpened] = useState(false);
+  const [search, setSearch] = useState("");
+  const [totalNumber, setTotalNumber] = useState(0);
 
-  const totalJobs = jobs.reduce(
-    (sum, item) => sum + item.total_jobs_in_hospital,
-    0
-  );
+  const debouncedSearchTerm = useDebounce(search, 1000);
 
   useEffect(() => {
     async function getJSONFiles() {
@@ -30,10 +30,62 @@ const Home = () => {
 
       setJobs(jobs);
       setFilters(filters);
+      setFilteredJobs(jobs);
+
+      const number = jobs.reduce(
+        (sum, item) => sum + item.total_jobs_in_hospital,
+        0
+      );
+
+      setTotalNumber(number);
     }
 
     getJSONFiles();
   }, []);
+
+  useEffect(() => {
+    console.log("searching");
+    let temp = [...jobs];
+
+    if (debouncedSearchTerm) {
+      temp = temp.map((x) => {
+        const filterItems = x.items.filter((y) => {
+          let flag = false;
+          Object.keys(y).forEach((key) => {
+            console.log(y[key]);
+            if (Array.isArray(y[key]) && y[key].length) {
+              if (isNaN(y[key][0])) {
+                flag =
+                  flag ||
+                  y[key].join(",").toLowerCase().includes(debouncedSearchTerm);
+              } else {
+                flag =
+                  flag ||
+                  y[key].findIndex(
+                    (z) => z.toString() == debouncedSearchTerm
+                  ) >= 0;
+              }
+            } else if (y[key] && isNaN(y[key])) {
+              console.log("123", y[key]);
+              flag = flag || y[key].toLowerCase().includes(debouncedSearchTerm);
+            } else if (!isNaN(y[key])) {
+              flag = flag || y[key].toString() == debouncedSearchTerm;
+            }
+          });
+          return flag;
+        });
+        return { ...x, items: filterItems };
+      });
+    }
+    const filteredItems = temp.filter((x) => x.items.length);
+    setFilteredJobs(filteredItems);
+    const number = filteredItems.reduce(
+      (sum, item) => sum + item.items.length,
+      0
+    );
+
+    setTotalNumber(number);
+  }, [debouncedSearchTerm]);
 
   return (
     <div>
@@ -53,6 +105,8 @@ const Home = () => {
             type="text"
             className="h-12 w-full md:border px-3 focus:outline-none"
             placeholder="Search for any job, title, keyworkds"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <div className="main-content md:grid grid-cols-12 gap-4 h-full overflow-auto md:p-6 md:pr-3 md:pt-0">
@@ -68,12 +122,12 @@ const Home = () => {
           <div className="main-content border col-start-4 col-end-13 bg-white p-5">
             <div className="main-content-header h-16 w-full flex justify-between items-center md:mb-5">
               <span>
-                <strong className="mr-3">{totalJobs}</strong>job postings
+                <strong className="mr-3">{totalNumber}</strong>job postings
               </span>
               <SortBar className="p-2 md:p-0 hidden md:flex" />
             </div>
             <div className="main-content-data">
-              {jobs.map((hospital, index) => (
+              {filteredJobs.map((hospital, index) => (
                 <HospitalItem key={`hospital-${index}`} data={hospital} />
               ))}
             </div>
@@ -115,5 +169,30 @@ const Home = () => {
     </div>
   );
 };
+
+// Hook
+function useDebounce(value, delay) {
+  // State and setters for debounced value
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(
+    () => {
+      // Update debounced value after delay
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      // Cancel the timeout if value changes (also on delay change or unmount)
+      // This is how we prevent debounced value from updating if value is changed ...
+      // .. within the delay period. Timeout gets cleared and restarted.
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [value, delay] // Only re-call effect if value or delay changes
+  );
+
+  return debouncedValue;
+}
 
 export default Home;

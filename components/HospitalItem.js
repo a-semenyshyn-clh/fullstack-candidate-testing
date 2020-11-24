@@ -5,7 +5,7 @@ const HospitalItem = ({ data }) => {
   const [selected, setSelected] = useState(false);
 
   const iconTitle = data.name.slice(0, 2).toUpperCase();
-  const title = `${data.total_jobs_in_hospital} jobs for ${data.name}`;
+  const title = `${data.items.length} jobs for ${data.name}`;
 
   return (
     <React.Fragment>
