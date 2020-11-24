@@ -16,6 +16,10 @@ body {
   @apply px-4 py-2 font-bold text-white bg-blue-500 rounded;
 }
 
+button {
+  @apply focus:outline-none
+}
+
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */
