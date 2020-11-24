@@ -1,6 +1,6 @@
 export default function Nav() {
   return (
-    <nav className="w-screen bg-white font-semibold text-sm">
+    <nav className="bg-white font-semibold text-sm">
       <ul className="flex items-center justify-between py-2 px-4">
         <li className="text-blue-500">HEALTH EXPLORE</li>
         <ul className="flex items-center justify-between space-x-6">
