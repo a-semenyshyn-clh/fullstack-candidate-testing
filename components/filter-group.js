@@ -7,8 +7,14 @@ export default function FilterGroup({ name, rawName, filters }) {
   function setFilter(key) {
     const filter = {
       ...params.filter,
-      [rawName]: key,
     };
+
+    // already selected, remove.
+    if (filter[rawName] === key) {
+      delete filter[rawName];
+    } else {
+      filter[rawName] = key;
+    }
 
     setParams({
       ...params,

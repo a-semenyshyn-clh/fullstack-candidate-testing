@@ -15,8 +15,8 @@ export default function SearchProvider({ children }) {
 
   useEffect(() => {
     fetch('/api/jobs', {
-      method: 'post',
-      data: searchData
+      method: 'POST',
+      body: JSON.stringify(searchData)
     })
         .then(response => response.json())
         .then(results => setSearchResults(results));
