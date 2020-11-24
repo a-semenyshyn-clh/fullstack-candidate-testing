@@ -12,7 +12,7 @@ export default function JobDetail({ job }) {
   }
 
   return (
-    <div className="cursor-pointer" onClick={toggleExpanded}>
+    <div className="cursor-pointer text-sm" onClick={toggleExpanded}>
       <div className="border-t border-gray-300 -mx-2 px-2 py-4 flex justify-between items-center">
         <div>
           <div className="font-semibold">{job.job_title}</div>
