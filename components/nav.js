@@ -1,8 +1,11 @@
 export default function Nav() {
   return (
-    <nav className="bg-white text-sm">
-      <ul className="flex items-center justify-between py-2 px-4">
-        <li className="text-blue-500 font-semibold text-lg ml-4">HEALTH EXPLORE</li>
+    <nav className="bg-white text-sm flex pl-4 lg:pl-0">
+      <button className="block lg:hidden">
+        <img className="w-6" src="/images/hamburger.png" alt=""/>
+      </button>
+      <ul className="flex items-center justify-between py-2 px-4 flex-grow">
+        <li className="text-blue-500 font-semibold text-lg lg:ml-4">HEALTH EXPLORE</li>
         <ul className="hidden lg:flex items-center justify-between space-x-6">
           <li><button className="font-semibold">PROFILE</button></li>
           <li><button className="font-semibold">JOBS</button></li>
