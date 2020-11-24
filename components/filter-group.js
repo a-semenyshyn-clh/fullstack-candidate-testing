@@ -52,7 +52,7 @@ export default function FilterGroup({ name, rawName, filters }) {
             <div className="flex flex-wrap p-4">
               {
                 filters.map(({ key, doc_count }) =>
-                  <div className="p-2 w-1/4" key={key}>
+                  <div className="p-2 w-full lg:w-1/4" key={key}>
                     <button className={`text-left ${selectedCategory === key ? 'text-blue-500' : ''}`} key={key} onClick={() => {
                       setFilter(key);
                       setModalShown(false);
