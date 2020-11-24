@@ -1,13 +1,10 @@
 import SearchBar from "../components/search-bar";
-import FilterGroup from "../components/filter-group";
 import JobResults from "../components/job-results";
 import { getAllFilters } from "./api/filters";
-import { getAllJobs } from "./api/jobs";
 import { useSearchResultsContext } from "../contexts/search-results";
 import FilterList from "../components/filter-list";
 
 export default function IndexPage({ filters }) {
-
   const { results } = useSearchResultsContext();
 
   return (<>
@@ -17,7 +14,7 @@ export default function IndexPage({ filters }) {
         <FilterList filters={filters} />
       </div>
       <div className="lg:w-3/4 w-full lg:mx-4 lg:ml-0">
-        <JobResults jobs={results}/>
+        <JobResults jobs={results} filters={filters}/>
       </div>
     </div>
   </>);
@@ -25,7 +22,6 @@ export default function IndexPage({ filters }) {
 
 export async function getServerSideProps() {
   const filters = await getAllFilters();
-  const jobs = await getAllJobs();
 
   return {
     props: {

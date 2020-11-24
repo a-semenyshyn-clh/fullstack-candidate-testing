@@ -29,7 +29,7 @@ export default function FilterGroup({ name, rawName, filters }) {
   const hasExtra = filters.length > 10;
 
   return (
-    <div className="bg-white m-4 p-4 flex flex-col space-y-2">
+    <div className="bg-white m-2 p-2 lg:m-4 lg:p-4 flex flex-col space-y-2">
       <div className="font-bold mb-2">{name}</div>
       {
         filters.slice(0, 10).map(({ key, doc_count }) =>
