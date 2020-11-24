@@ -7,12 +7,20 @@
     "forever": "npm run build && forever start -c 'npm start' ./"
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-react": "^7.21.5",
+    "isomorphic-unfetch": "^3.1.0",
     "next": "9.3.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "postcss-preset-env": "6.7.0",
     "tailwindcss": "1.2.0"
   }

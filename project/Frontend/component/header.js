@@ -1,16 +1,24 @@
-const header = () => {
+import React from 'react';
+
+const Header = ({ onInputChange }) => {
+  const [searchText, setSearchText] = React.useState('');
+
+  const updateInput = (e) => {
+    setSearchText(e.target.value);
+  };
+
   return (
     <div>
       <div className="p-4 shadow rounded bg-white flex">
         <div className="block lg:hidden mt-1">
           <button className="tailwind-burger flex items-center px-3 py-2 border rounded text-blue-700 border-blue-700">
             <svg
-            className="fill-current h-3 w-3"
+              className="fill-current h-3 w-3"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
               <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
           </button>
         </div>
@@ -83,16 +91,19 @@ const header = () => {
           PR
         </div>
       </div>
-      <div className="w-full sm:mt-0 sm:mb-0 lg:mt-3 lg:mb-3 md:mb-0 lg:px-3">
-        <input
-          id="search-bs-class"
-          className="appearance-none block w-full py-3 px-4 leading-tight text-gray-700 focus:bg-white border border-gray-200 focus:border-gray-500 rounded focus:outline-none"
-          type="text"
-          placeholder="Search for any job, title, keywords, or company"
-        />
+      <div className="flex w-full sm:mt-0 sm:mb-0 lg:mt-3 lg:mb-3 md:mb-0 lg:px-3">
+        <form className="appearance-none block w-full leading-tight text-gray-700 focus:bg-white border border-gray-200 focus:border-gray-500 rounded focus:outline-none" onSubmit={(e) => { e.preventDefault(); onInputChange(searchText); }}>
+          <input
+            id="search-bs-class"
+            className="appearance-none block w-full py-3 px-4 leading-tight text-gray-700 focus:bg-white border border-gray-200 focus:border-gray-500 rounded focus:outline-none"
+            type="text"
+            onChange={updateInput}
+            placeholder="Search for any job, title, keywords, or company"
+          />
+        </form>
       </div>
     </div>
   );
 };
 
-export default header;
+export default Header;
