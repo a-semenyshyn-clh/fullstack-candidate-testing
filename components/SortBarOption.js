@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 
-const SortBarOption = ({ text }) => {
+const SortBarOption = ({ text, onClick }) => {
   const [value, setValue] = useState(0);
+
+  const SortBarClick = () => {
+    setValue(((value + 2) % 3) - 1);
+    if (onClick) {
+      onClick(value);
+    }
+  };
 
   return (
     <div
       className="sort-bar-option flex items-center relative"
-      onClick={() => setValue(((value + 2) % 3) - 1)}
+      onClick={() => SortBarClick()}
     >
       <span className="mr-1">{text}</span>
       {value !== 0 && (

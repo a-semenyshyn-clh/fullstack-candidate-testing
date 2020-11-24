@@ -6,7 +6,7 @@ const JobItem = ({ data, onClick }) => {
   const [selected, setSelected] = useState(false);
 
   const shortDescription = `${data.job_type} | ${data.salary_range
-    .map((x) => `$x`)
+    .map((x) => `$${x}`)
     .join(" - ")} an hour | ${data.address}, ${data.state}`;
 
   const getDifference = (date) => {
