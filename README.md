@@ -34,3 +34,10 @@
 The screenshot files are for reference only. The React app you are required to build has to look like these screenshots, but we don't expect your views to be an exact clone of every single one of them. All the components in the screenshot were built in plain .jsx with Tailwind CSS, with almost no custom CSS and no additional design assets (images, svg, logos).
 
 Good luck!
+
+
+## How to install
+
+1. Clone the git repository.
+2. npm install
+3. npm run dev
