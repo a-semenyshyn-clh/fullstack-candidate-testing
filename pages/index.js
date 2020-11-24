@@ -15,7 +15,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [totalNumber, setTotalNumber] = useState(0);
 
-  const debouncedSearchTerm = useDebounce(search, 1000);
+  const debouncedSearchTerm = useDebounce(search, 500);
 
   useEffect(() => {
     async function getJSONFiles() {
@@ -119,7 +119,7 @@ const Home = () => {
               />
             ))}
           </div>
-          <div className="main-content border col-start-4 col-end-13 bg-white p-5">
+          <div className="border col-start-4 col-end-13 bg-white p-5">
             <div className="main-content-header h-16 w-full flex justify-between items-center md:mb-5">
               <span>
                 <strong className="mr-3">{totalNumber}</strong>job postings
@@ -156,13 +156,9 @@ const Home = () => {
         </div>
       )}
       <style jsx>{`
-        .main {
-          height: calc(100vh - 64px);
-        }
-
         @media (min-width: 767.98px) {
           .main-content {
-            height: calc(100% - 3rem);
+            height: calc(100vh - 161px);
           }
         }
       `}</style>
