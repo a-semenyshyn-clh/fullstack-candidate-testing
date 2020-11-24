@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+import moment from "moment";
 import Nav from "../components/nav";
 import HospitalItem from "../components/HospitalItem";
 import FilterPanel from "../components/FilterPanel";
@@ -19,18 +20,23 @@ const Home = () => {
 
   useEffect(() => {
     async function getJSONFiles() {
-      console.log("getStaticProps");
-      const res1 = await fetch("/data/filters.json");
-      const filters = await res1.json();
-      const res2 = await fetch("/data/jobs.json");
-      let jobs = await res2.json();
-      jobs = jobs.map((job) => ({ ...job, selected: false }));
-      console.log("fiters", filters);
-      console.log("jobs", jobs);
+      const filtersDataResult = await fetch("/data/filters.json");
+      const filters = await filtersDataResult.json();
+      const jobsDataResult = await fetch("/data/jobs.json");
+      let jobs = await jobsDataResult.json();
 
-      setJobs(jobs);
+      let sortedJobs = jobs.map((x) => {
+        const items = x.items.sort((first, second) => {
+          const firstDate = moment(first.created);
+          const secondDate = moment(second.created);
+          return firstDate.isBefore(secondDate) ? 1 : -1;
+        });
+        return { ...x, items: items };
+      });
+
+      setJobs(sortedJobs);
       setFilters(filters);
-      setFilteredJobs(jobs);
+      setFilteredJobs(sortedJobs);
 
       const number = jobs.reduce(
         (sum, item) => sum + item.total_jobs_in_hospital,
@@ -156,10 +162,8 @@ const Home = () => {
         </div>
       )}
       <style jsx>{`
-        @media (min-width: 767.98px) {
-          .main-content {
-            height: calc(100vh - 161px);
-          }
+        .main-content {
+          height: calc(100vh - 161px);
         }
       `}</style>
     </div>
