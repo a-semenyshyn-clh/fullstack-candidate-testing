@@ -1,37 +1,47 @@
-import React from "react";
-
-export default function Footer() {
-
+const Footer = () => {
   return (
-    <div className="w-full bg-white">
-      <div className="flex flex-wrap -mx-2 p-6 font-thin">
-        <div className="w-full lg:w-1/2 px-2">
-          <div className="mt-6 text-xl font-semibold">About us</div>
-          <p className="">We are a team of nurses, doctors, technologist and executices dedicated to help nurses find jobs that they love.</p>
-          <p className="pt-2">All copyrights reserved &copy; {(new Date().getFullYear())} - Health Explore</p>
+    <footer className="p-5 bg-white">
+      <div className="grid grid-cols-4 gap-4 text-black">
+        <div className="col-span-4 md:col-span-2">
+          <label className="text-lg font-bold mb-2 mt-2">About Us</label>
+          <p className="text-sm mt-1 block">
+            We are a team of nurses, doctors, technologies and executives
+            dedicated to help nurses find jobs that they love
+          </p>
+          <p className="text-sm mt-1 block">
+            All copyrights reserved &copy; {(new Date().getFullYear())} - Health Explore
+          </p>
         </div>
-
-        <div className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-          <div className="mt-6 text-xl font-semibold">Sitemap</div>
-            <ul className="">
-              <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Nurses</a></li>
-              <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Employers</a></li>
-              <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Social networking</a></li>
-              <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Jobs</a></li>
-            </ul>
+        <div className="col-span-4 md:col-span-1">
+          <label className="text-lg font-bold mb-2 mt-2">Sitemap</label>
+          <a href="/#" className="text-sm mt-1 block">
+            Nurses
+          </a>
+          <a href="/#" className="text-sm mt-1 block">
+            Employers
+          </a>
+          <a href="/#" className="text-sm mt-1 block">
+            Social Networking
+          </a>
+          <a href="/#" className="text-sm mt-1 block">
+            Jobs
+          </a>
         </div>
-
-        <div className="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
-          <div className="mt-6 text-xl font-semibold">Privacy</div>
-          <ul className="">
-            <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Terms of use</a></li>
-            <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Privacy policy</a></li>
-            <li><a href="#" className="block rounded-md text-base hover:text-white hover:bg-gray-700">Cookie policy</a></li>
-          </ul>
+        <div className="col-span-4 md:col-span-1">
+          <label className="text-lg font-bold mb-2 mt-2">Privacy</label>
+          <a href="/#" className="text-sm mt-1 block">
+            Terms of Use
+          </a>
+          <a href="/#" className="text-sm mt-1 block">
+            Privacy Policy
+          </a>
+          <a href="/#" className="text-sm mt-1 block">
+            Cookie Policy
+          </a>
         </div>
-        
       </div>
-
-    </div>
+    </footer>
   );
-}
+};
+
+export default Footer;

@@ -1,22 +1,23 @@
 import NumberFormat from "react-number-format";
 
-const FilterButton = (props) => {
-  const { title, value, onFilter, selected } = props;
+const Filter = (props) => {
+  const { item, onFilter } = props;
 
   return (
-    <div className="flex items-center px-3 pb-2" key={title}>
+    <div className="flex items-center px-3 pb-2">
       <div className="font-light text-sm">
         <a
-          className={`${selected ? "text-blue-clipboard" : ""}`}
+          className={`${item.selected ? "text-blue-clipboard" : ""}`}
           href="#"
-          onClick={onFilter}>
-          {title}
+          onClick={() => onFilter(item.key, item.selected)}
+        >
+          {item.key}
         </a>
       </div>
       <div className="flex-1 text-xs pl-2">
         <div className="uppercase text-gray-600 pt-1 text-xs">
           <NumberFormat
-            value={value}
+            value={item.doc_count}
             displayType={"text"}
             thousandSeparator={true}
           />
@@ -26,4 +27,4 @@ const FilterButton = (props) => {
   );
 };
 
-export default FilterButton;
+export default Filter;

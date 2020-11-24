@@ -17,34 +17,6 @@
       "doc_count": 1848
     }
   ],
-  "work_schedule": [
-    {
-      "key": "Night shift",
-      "doc_count": 3889
-    },
-    {
-      "key": "Day shift",
-      "doc_count": 3864
-    }
-  ],
-  "experience": [
-    {
-      "key": "Intermediate",
-      "doc_count": 1997
-    },
-    {
-      "key": "Senior",
-      "doc_count": 1985
-    },
-    {
-      "key": "Internship",
-      "doc_count": 1968
-    },
-    {
-      "key": "Junior",
-      "doc_count": 1803
-    }
-  ],
   "department": [
     {
       "key": "Anesthesiology & Perioperative Medicine",
@@ -121,6 +93,34 @@
     {
       "key": "Neurosurgery",
       "doc_count": 1977
+    }
+  ],
+  "work_schedule": [
+    {
+      "key": "Night shift",
+      "doc_count": 3889
+    },
+    {
+      "key": "Day shift",
+      "doc_count": 3864
+    }
+  ],
+  "experience": [
+    {
+      "key": "Intermediate",
+      "doc_count": 1997
+    },
+    {
+      "key": "Senior",
+      "doc_count": 1985
+    },
+    {
+      "key": "Internship",
+      "doc_count": 1968
+    },
+    {
+      "key": "Junior",
+      "doc_count": 1803
     }
   ]
 }
