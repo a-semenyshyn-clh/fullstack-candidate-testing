@@ -1,14 +1,7 @@
-import Nav from '../components/nav'
-
 export default function IndexPage() {
   return (
-    <div>
-      <Nav />
-      <div className="py-20">
-        <h1 className="text-5xl text-center text-gray-700 dark:text-gray-100">
-          Next.js + Tailwind CSS 2.0
-        </h1>
-      </div>
+    <div className="m-4 p-4 flex bg-white space-x-4">
+      <input type="text" className="w-full outline-none" placeholder="Search for any job, title, keywords or company" />
     </div>
-  )
+  );
 }
