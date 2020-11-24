@@ -21,7 +21,7 @@ export default function IndexPage({ filters, allJobs }) {
         {
           Object.entries(filters)
             .map(([key, filters]) =>
-              <FilterGroup key={key} name={categoryKeyToName(key)} filters={filters} />)
+              <FilterGroup key={key} rawName={key} name={categoryKeyToName(key)} filters={filters} />)
         }
       </div>
       <div className="lg:w-3/4 w-full mr-4 ml-4 lg:ml-0">
