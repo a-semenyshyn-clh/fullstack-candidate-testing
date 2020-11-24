@@ -6,9 +6,9 @@ import SearchResultsContext from "./search-results";
 export default function SearchProvider({ children }) {
 
   const [searchData, setSearchData] = useState({
-    filters: {},
+    filter: {},
     text: '',
-    sorter: null
+    sorter: {}
   });
 
   const [searchResults, setSearchResults] = useState([]);

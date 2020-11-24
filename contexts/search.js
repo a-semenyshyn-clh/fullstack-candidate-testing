@@ -2,9 +2,9 @@ import { createContext, useContext } from "react";
 
 const SearchContext = createContext({
   params: {
-    filters: {},
+    filter: {},
     text: '',
-    sorter: null
+    sorter: {}
   },
   setParams: () => {}
 });
