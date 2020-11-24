@@ -14,7 +14,13 @@ export default function SearchProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
-    console.log('searchData changed', searchData);
+    fetch('/api/jobs', {
+      method: 'post',
+      data: searchData
+    })
+        .then(response => response.json())
+        .then(results => setSearchResults(results));
+
   }, [searchData]);
 
   return (

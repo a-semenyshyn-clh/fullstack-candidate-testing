@@ -80,5 +80,5 @@ export default function JobResults({ jobs }) {
       }
       </div>
     </div>
-  )
+  );
 }
