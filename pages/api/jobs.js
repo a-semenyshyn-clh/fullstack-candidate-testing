@@ -54,7 +54,18 @@ function matchesFilter(job, filter) {
 }
 
 function matchesText(job, text) {
-  return true;
+
+  if (!text) {
+    return true;
+  }
+
+  return Object.values(job).some(value => {
+    if (typeof value === 'string') {
+      return value.toLowerCase().includes(text.toLowerCase());
+    } else if (typeof value === 'object') {
+      return matchesText(value, text);
+    }
+  });
 }
 
 function sortJobs(jobs, sorter) {
