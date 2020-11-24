@@ -4,14 +4,7 @@ import JobResults from "../components/job-results";
 import { getAllFilters } from "./api/filters";
 import { getAllJobs } from "./api/jobs";
 import { useSearchResultsContext } from "../contexts/search-results";
-
-function categoryKeyToName(key) {
-  return key.split('_').map(capitalizeFirstLetter).join(' ');
-}
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+import FilterList from "../components/filter-list";
 
 export default function IndexPage({ filters }) {
 
@@ -21,11 +14,7 @@ export default function IndexPage({ filters }) {
     <SearchBar />
     <div className="flex lg:-mt-4 border-t borfer-gray-300 lg:border-t-0">
       <div className="lg:w-4/12 hidden lg:block">
-        {
-          Object.entries(filters)
-            .map(([key, filters]) =>
-              <FilterGroup key={key} rawName={key} name={categoryKeyToName(key)} filters={filters} />)
-        }
+        <FilterList filters={filters} />
       </div>
       <div className="lg:w-3/4 w-full lg:mx-4 lg:ml-0">
         <JobResults jobs={results}/>
