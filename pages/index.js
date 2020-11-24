@@ -19,7 +19,7 @@ export default function IndexPage({ filters }) {
 
   return (<>
     <SearchBar />
-    <div className="flex -mt-4">
+    <div className="flex lg:-mt-4 border-t borfer-gray-300 lg:border-t-0">
       <div className="lg:w-4/12 hidden lg:block">
         {
           Object.entries(filters)
@@ -27,7 +27,7 @@ export default function IndexPage({ filters }) {
               <FilterGroup key={key} rawName={key} name={categoryKeyToName(key)} filters={filters} />)
         }
       </div>
-      <div className="lg:w-3/4 w-full mr-4 ml-4 lg:ml-0">
+      <div className="lg:w-3/4 w-full lg:mx-4 lg:ml-0">
         <JobResults jobs={results}/>
       </div>
     </div>

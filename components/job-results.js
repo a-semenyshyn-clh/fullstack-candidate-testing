@@ -47,8 +47,8 @@ export default function JobResults({ jobs }) {
   const totalJobs = hospitals.reduce((count, hospital) => count + hospital.total_jobs_in_hospital, 0);
 
   return (
-    <div className="bg-white my-4 p-6">
-      <div className="flex justify-between mb-8 mt-2">
+    <div className="bg-white lg:my-4 p-3 lg:p-6">
+      <div className="flex justify-between mb-6 lg:mb-8 mt-2">
         <div>
           <span className="font-bold">{totalJobs}</span> job postings
         </div>
@@ -74,7 +74,7 @@ export default function JobResults({ jobs }) {
           })}
         </div>
       </div>
-      <div className="mx-4">
+      <div className="mx-2 lg:mx-4">
       {
         hospitals.map((hospital, i) =>
           <JobList key={i} hospital={hospital} />)

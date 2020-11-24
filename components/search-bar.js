@@ -15,7 +15,7 @@ export default function SearchBar() {
   const debouncedHandleChange = debounce(handleTextFieldChange, 500);
 
   return (
-      <div className="m-4 p-4 flex bg-white space-x-4">
+      <div className="lg:m-4 p-4 flex bg-white space-x-4 border-t borfer-gray-300 lg:border-t-0">
         <input onChange={e => debouncedHandleChange(e.target.value)} type="text" className="w-full outline-none" placeholder="Search for any job, title, keywords or company" />
       </div>
   );
