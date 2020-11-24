@@ -1,10 +1,3 @@
-import Link from 'next/link'
-
-const links = [
-  { href: 'https://github.com/vercel/next.js', label: 'GitHub' },
-  { href: 'https://nextjs.org/docs', label: 'Docs' },
-]
-
 export default function Nav() {
   return (
     <nav className="w-screen bg-white font-semibold text-sm">
@@ -27,5 +20,5 @@ export default function Nav() {
         </div>
       </ul>
     </nav>
-  )
+  );
 }
