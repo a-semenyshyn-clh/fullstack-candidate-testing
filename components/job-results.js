@@ -1,6 +1,21 @@
+import { useState } from "react";
+
 import JobList from "./job-list";
 
 export default function JobResults({ jobs }) {
+
+  const [expandedHospitalIndex, setExpandedHospitalIndex] = useState(-1);
+
+  function toggleHospitalIndex(i) {
+    if ( i === expandedHospitalIndex ) {
+      // Already expanded, collapse
+      setExpandedHospitalIndex(-1);
+    } else {
+      // Not expanded, expand
+      setExpandedHospitalIndex(i);
+    }
+  }
+
   const hospitals = jobs;
   return (
     <div className="bg-white my-4 p-6">
@@ -19,7 +34,8 @@ export default function JobResults({ jobs }) {
       </div>
       <div className="mx-4">
       {
-        hospitals.map(hospital => <JobList hospital={hospital} expanded />)
+        hospitals.map((hospital, i) =>
+          <JobList key={i} hospital={hospital} expanded={expandedHospitalIndex === i} onClick={() => toggleHospitalIndex(i)}/>)
       }
       </div>
     </div>
