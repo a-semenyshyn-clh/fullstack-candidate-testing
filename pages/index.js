@@ -9,7 +9,7 @@ export default function IndexPage({ filters }) {
 
   return (<>
     <SearchBar />
-    <div className="flex lg:-mt-4 border-t borfer-gray-300 lg:border-t-0">
+    <div className="flex lg:-mt-4 border-t border-gray-300 lg:border-t-0">
       <div className="lg:w-4/12 hidden lg:block">
         <FilterList filters={filters} />
       </div>

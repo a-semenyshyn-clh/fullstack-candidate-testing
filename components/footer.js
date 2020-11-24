@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="flex space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 p-4 bg-white flex-col lg:flex-row border-t borfer-gray-300 lg:border-t-0">
+    <footer className="flex space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 p-4 bg-white flex-col lg:flex-row border-t border-gray-300 lg:border-t-0">
       <div className="lg:w-1/2 md:w-full flex flex-col space-y-2">
         <h3 className="text-lg font-bold">About Us</h3>
         <p>We are a team of nurses, doctors, technologists and executives dedicated to help nurses find jobs that they love.</p>
