@@ -1,17 +1,45 @@
+import { useState } from "react";
+
+const navLinks = [
+  {
+    name: 'PROFILE',
+    link: '#'
+  },
+  {
+    name: 'JOBS',
+    link: '#'
+  },
+  {
+    name: 'PROFESSIONAL NETWORK',
+    link: '#'
+  },
+  {
+    name: 'LOUNGE',
+    link: '#'
+  },
+  {
+    name: 'SALARY',
+    link: '#'
+  }
+]
+
 export default function Nav() {
-  return (
+
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+
+  return (<>
     <nav className="bg-white text-sm flex pl-4 lg:pl-0">
-      <button className="block lg:hidden">
+      <button className="block lg:hidden" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
         <img className="w-6" src="/images/hamburger.png" alt=""/>
       </button>
       <ul className="flex items-center justify-between py-2 px-4 flex-grow">
         <li className="text-blue-500 font-semibold text-lg lg:ml-4">HEALTH EXPLORE</li>
         <ul className="hidden lg:flex items-center justify-between space-x-6">
-          <li><button className="font-semibold">PROFILE</button></li>
-          <li><button className="font-semibold">JOBS</button></li>
-          <li><button className="font-semibold">PROFESSIONAL NETWORK</button></li>
-          <li><button className="font-semibold">LOUNGE</button></li>
-          <li><button className="font-semibold">SALARY</button></li>
+          {
+            navLinks.map((link, i) =>
+              <li key={i}><a href={link.link} className="font-semibold">{link.name}</a></li>
+            )
+          }
         </ul>
         <div className="flex space-x-6 items-stretch">
           <button className="hidden lg:block border border-blue-500 text-blue-500 rounded-md font-semibold my-2 px-3">CREATE JOB</button>
@@ -23,5 +51,18 @@ export default function Nav() {
         </div>
       </ul>
     </nav>
-  );
+    {
+      mobileNavOpen && (
+        <ul className="flex lg:hidden flex-col bg-white space-y-2 pb-2">
+          {
+            navLinks.map((link, i) =>
+              <li key={i} className="py-2 mx-4">
+                <a href={link.link} className="font-semibold">{link.name}</a>
+              </li>
+            )
+          }
+        </ul>
+      )
+    }
+  </>);
 }
