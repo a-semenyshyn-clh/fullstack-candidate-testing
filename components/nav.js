@@ -28,7 +28,7 @@ export default function Nav() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   return (<>
-    <nav className="bg-white text-sm flex pl-4 lg:pl-0">
+    <nav className="bg-white shadow text-sm flex pl-4 lg:pl-0 lg:fixed top-0 w-full">
       <button className="block lg:hidden" onClick={() => setMobileNavOpen(!mobileNavOpen)}>
         <img className="w-6" src="/images/hamburger.png" alt=""/>
       </button>
