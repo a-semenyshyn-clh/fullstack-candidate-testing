@@ -18,7 +18,7 @@ export default function JobDetail({ job }) {
           <div className="font-semibold">{job.job_title}</div>
           <div>{job.job_type} | ${job.salary_range[0]} - ${job.salary_range[1]} an hour | {job.city}</div>
         </div>
-        <div>2 weeks ago</div>
+        <div>{timeSince(new Date(job.created))}</div>
       </div>
       {expanded && (
         <div className="flex flex-col lg:flex-row mb-4 space-y-4 lg:space-x-4 lg:space-y-0">
@@ -44,4 +44,19 @@ export default function JobDetail({ job }) {
       )}
     </div>
   );
+}
+
+function timeSince(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+  const daysSince = Math.floor(seconds / 86400);
+
+  if (daysSince === 0) {
+    return 'Today';
+  }
+
+  if (daysSince === 1) {
+    return 'Yesterday';
+  }
+
+  return `${daysSince} days ago`;
 }
