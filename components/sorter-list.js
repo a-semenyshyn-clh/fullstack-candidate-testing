@@ -10,7 +10,7 @@ const sorters = [
     name: 'Avg. Salary'
   },
   {
-    key: 'title',
+    key: 'job_title',
     name: 'Title'
   },
 ];
