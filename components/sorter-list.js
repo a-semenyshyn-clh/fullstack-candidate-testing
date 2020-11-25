@@ -20,23 +20,28 @@ export default function SorterList() {
 
   function handleSorterClick(key) {
     const { sorter } = params;
-    const sorterCopy = {...sorter};
+
+    let sorterToSet;
 
     // sorters toggle in the sequence none -> desc -> asc -> none
     if (sorter[key] === 'asc') {
       // if ascending, reset
-      delete sorterCopy[key];
+      sorterToSet = {};
     } else if (sorter[key] === 'desc') {
       // if desc, change to asc
-      sorterCopy[key] = 'asc';
+      sorterToSet = {
+        [key]: 'asc'
+      };
     } else {
       // not selected, change to desc
-      sorterCopy[key] = 'desc';
+      sorterToSet = {
+        [key]: 'desc'
+      };
     }
 
     setParams({
       ...params,
-      sorter: sorterCopy
+      sorter: sorterToSet
     });
   }
 
