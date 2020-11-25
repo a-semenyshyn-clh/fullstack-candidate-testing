@@ -53,7 +53,7 @@ export default function Nav() {
     </nav>
     {
       mobileNavOpen && (
-        <ul className="flex lg:hidden flex-col bg-white space-y-2 pb-2">
+        <ul className="flex lg:hidden flex-col bg-white items-start space-y-2 pb-4">
           {
             navLinks.map((link, i) =>
               <li key={i} className="py-2 mx-4">
@@ -61,6 +61,10 @@ export default function Nav() {
               </li>
             )
           }
+          <button className="py-1 mx-2 border border-blue-500 text-blue-500 rounded-md font-semibold my-2 px-2">CREATE JOB</button>
+          <li className="py-2 mx-4">
+            <a href="#" className="font-semibold">LOGOUT</a>
+          </li>
         </ul>
       )
     }
