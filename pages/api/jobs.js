@@ -68,9 +68,58 @@ function matchesText(job, text) {
   });
 }
 
+const sortingComparators = {
+  default: (job1, job2, key) => {
+    if (job1[key] > job2[key]) {
+      return -1;
+    } else if (job1[key] < job2[key]) {
+      return 1;
+    } else {
+      return 0;
+    }
+  },
+  hours: (job1, job2, key) => {
+    const job1Hours = job1[key][0];
+    const job2Hours = job2[key][0];
+
+    if (job1Hours > job2Hours) {
+      return -1;
+    } else if (job1Hours < job2Hours) {
+      return 1;
+    } else {
+      return 0;
+    }
+
+  },
+  salary: (job1, job2, key) => {
+    const avgJob1 = (job1.salary_range[0] + job1.salary_range[1]) / 2
+    const avgJob2 = (job2.salary_range[0] + job2.salary_range[1]) / 2;
+
+    if (avgJob1 > avgJob2) {
+      return -1;
+    } else if (avgJob1 < avgJob2) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+}
+
 function sortJobs(jobs, sorter) {
+  Object.keys(sorter).forEach(sorterKey => {
+    const comparator = sortingComparators[sorterKey] || sortingComparators.default;
+    const direction = sorter[sorterKey];
+    jobs.sort((job1, job2) => {
+      if (direction === 'desc') {
+        return comparator(job1, job2, sorterKey);
+      } else {
+        return -comparator(job1, job2, sorterKey);
+      }
+    });
+  });
   return jobs;
 }
+
 
 export async function getAllJobs() {
   return jobs;
